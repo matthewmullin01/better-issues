@@ -1,16 +1,21 @@
 import React from "react";
 import "./App.css";
-import firebase from "firebase";
+import { Login } from "./pages/login/Login";
+import { AuthContext, useAuthContext } from "./utils/hooks/auth.hook";
 
 function App() {
-  const firebaseApp = firebase.apps[0];
+  const authContext = useAuthContext();
+
+  if (!authContext.currentUser) {
+    console.log("Not Logged in");
+  } else {
+    console.log("Logged in");
+  }
+
   return (
-    <div>
-      <h1>React & Firebase</h1>
-      <code>
-        <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
-      </code>
-    </div>
+    <AuthContext.Provider value={authContext}>
+      <Login />
+    </AuthContext.Provider>
   );
 }
 

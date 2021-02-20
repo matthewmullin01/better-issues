@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import firebase from "firebase/app";
+import { ChakraProvider } from "@chakra-ui/react";
 
 // Use your config values here.
 firebase.initializeApp({
@@ -17,7 +18,9 @@ firebase.initializeApp({
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
