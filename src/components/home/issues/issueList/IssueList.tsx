@@ -1,4 +1,4 @@
-import { Divider } from "@chakra-ui/react";
+import { Box, Divider } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { GitHubIssue, GitHubAPI } from "../../../../api/github";
@@ -47,10 +47,10 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
   };
 
   const issueList = issues?.map((issue) => (
-    <>
+    <Box key={issue.id}>
       <IssueItem onClick={() => issueClicked(issue)} key={issue.id} issue={issue}></IssueItem>
       <Divider />
-    </>
+    </Box>
   ));
 
   return (

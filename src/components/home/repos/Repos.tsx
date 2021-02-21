@@ -1,9 +1,10 @@
-import { Container, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GitHubAPI, GitHubRepo } from "../../../api/github";
 import { AuthContext } from "../../../utils/hooks/auth.hook";
 import { Paginator } from "../../shared/paginator/Paginator";
+import { Skeleton } from "../../shared/skeleton/Skeleton";
 import { RepoItem } from "./repoItem/RepoItem";
 
 export interface ReposProps {}
@@ -50,10 +51,10 @@ export const Repos: FunctionComponent<ReposProps> = () => {
   };
 
   const repoList = repos?.map((repo) => (
-    <>
+    <Box key={repo.id}>
       <RepoItem onClick={() => repoClicked(repo)} key={repo.id} repo={repo}></RepoItem>
       <Divider />
-    </>
+    </Box>
   ));
 
   return (
@@ -66,7 +67,7 @@ export const Repos: FunctionComponent<ReposProps> = () => {
 
       <Container mt="8">
         {loading ? (
-          <></>
+          <Skeleton />
         ) : (
           <>
             {repoList}

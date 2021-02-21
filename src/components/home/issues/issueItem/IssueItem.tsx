@@ -11,8 +11,6 @@ export interface IssueItemProps {
 export const IssueItem: FunctionComponent<IssueItemProps> = (props: IssueItemProps) => {
   const { issue, onClick } = props;
 
-  console.log(issue);
-
   const getTagColor = (state: string) => {
     switch (state) {
       case "open":
@@ -41,10 +39,7 @@ export const IssueItem: FunctionComponent<IssueItemProps> = (props: IssueItemPro
           <Tag mr="1" size="sm" colorScheme={getTagColor(issue.state)}>
             {issue.state}
           </Tag>
-          <b>#{issue.number}</b> was created by
-          <Text mr="1" ml="1" opacity="0.5" display="inline">
-            {issue.user.login}
-          </Text>
+          <b>#{issue.number}</b> was created by <span style={{ opacity: "0.5" }}> {issue.user.login} </span>
           on {format(new Date(issue.created_at), "dd MMM yyyy")}
         </Text>
       </Flex>
