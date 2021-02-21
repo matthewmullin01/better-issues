@@ -25,6 +25,7 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
 
   useEffect(() => {
     getIssues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const getIssues = async () => {

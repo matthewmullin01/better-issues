@@ -20,6 +20,7 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
 
   useEffect(() => {
     getIssue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getIssue = async () => {
