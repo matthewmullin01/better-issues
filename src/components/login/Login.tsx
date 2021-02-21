@@ -1,5 +1,5 @@
-import { FunctionComponent, useContext } from "react";
-import { Button } from "@chakra-ui/react";
+import React, { FunctionComponent, useContext } from "react";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import { AuthContext } from "../../utils/hooks/auth.hook";
 import { useHistory } from "react-router-dom";
 
@@ -14,5 +14,18 @@ export const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
     history.push("/");
   };
 
-  return <Button onClick={loginClicked}>Login with Github</Button>;
+  return (
+    <Flex flexDirection="column" align="center" justify="center" height="100vh">
+      <Heading as="h1" size="sm" fontWeight="bold">
+        Welcome to
+      </Heading>
+      <Heading ml="1" mt="-0.2" as="h1" size="lg" letterSpacing={"-.1rem"}>
+        Better Issues
+      </Heading>
+      <Button mt="8" onClick={loginClicked}>
+        Login with Github
+      </Button>
+      ;
+    </Flex>
+  );
 };

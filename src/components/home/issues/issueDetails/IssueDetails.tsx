@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react";
+import { Box, Heading, Tag, Text, Flex } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { GitHubAPI, GitHubIssue } from "../../../../api/github";
 import { AuthContext } from "../../../../utils/hooks/auth.hook";
 import { Skeleton } from "../../../shared/skeleton/Skeleton";
+import { format } from "date-fns";
 
 export interface IssueDetailsProps {}
 
@@ -27,23 +28,45 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
     setIssue(issue);
   };
 
+  const getTagColor = (state: string) => {
+    switch (state) {
+      case "open":
+        return "orange";
+      case "closed":
+        return "green";
+      default:
+        return "orange";
+    }
+  };
+
   return (
-    <>
+    <Box mt="6">
       {loading || !issue ? (
         <Skeleton />
       ) : (
-        <div>
-          <h1>{issue.title}</h1>
-          <small>{issue.description}</small>
-          <small>{issue.state}</small>
-          {/* These are arrays */}
-          {/* <small>{issue.assignees}</small>
-      <small>{issue.labels}</small> */}
-          <div>
+        <Box>
+          <Heading as="h2" size="md">
+            {issue.title}
+            <Text ml="2" opacity="0.5" fontWeight="normal" display="inline">
+              # {issue.number}
+            </Text>
+          </Heading>
+
+          <Flex mt="2" align="center" justify="start" color="#777">
+            <Text mt="1" fontSize="xs">
+              <Tag mr="1" size="sm" colorScheme={getTagColor(issue.state)}>
+                {issue.state}
+              </Tag>
+              <b>#{issue.number}</b> was created by <span style={{ opacity: "0.5" }}> {issue.user.login} </span>
+              on {format(new Date(issue.created_at), "dd MMM yyyy")}
+            </Text>
+          </Flex>
+
+          <Box mt="4" color="#777" fontSize="0.75em">
             <ReactMarkdown renderers={ChakraUIRenderer()} source={issue.body} />
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
-    </>
+    </Box>
   );
 };
