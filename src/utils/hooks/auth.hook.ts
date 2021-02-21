@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import firebase from "firebase";
 
 export interface AuthContextData {
@@ -6,6 +6,7 @@ export interface AuthContextData {
   oAuthToken?: string | null;
   login: () => Promise<void>;
   logout: () => Promise<void>;
+  initializing: boolean;
 }
 
 export const authContextDefaultValue: AuthContextData = {
@@ -13,6 +14,7 @@ export const authContextDefaultValue: AuthContextData = {
   oAuthToken: null,
   login: () => new Promise(null as any),
   logout: () => new Promise(null as any),
+  initializing: true,
 };
 
 export const AuthContext = createContext<AuthContextData>(authContextDefaultValue);
@@ -21,29 +23,40 @@ export const AuthContext = createContext<AuthContextData>(authContextDefaultValu
 export function useAuthContext(): AuthContextData {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>();
   const [oAuthToken, setOAuthToken] = useState<string | null>();
+  const [initializing, setInitializing] = useState<boolean>(true);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        setCurrentUser(user);
+        setOAuthToken(localStorage.getItem("token"));
+      } else {
+        localStorage.removeItem("token");
+        setOAuthToken(null);
+        setCurrentUser(null);
+      }
+      setInitializing(false);
+    });
+  }, []);
 
   const login = async () => {
     const userCredentials = await loginWithGithub();
     const token = (userCredentials.credential as any).accessToken;
     if (!token) throw new Error("No Github oAuth Token returned from login. Are you using the correct auth provider?");
     if (!userCredentials.user) throw new Error("User not returned from login");
-    setOAuthToken(token);
     setCurrentUser(userCredentials.user);
+    localStorage.setItem("token", token);
+    setOAuthToken(token);
   };
 
   const loginWithGithub = async () => {
     const provider = new firebase.auth.GithubAuthProvider();
+    provider.addScope("repo");
     return firebase.auth().signInWithPopup(provider);
   };
 
   const logout = async () => {
-    try {
-      await firebase.auth().signOut();
-      setOAuthToken(null);
-      setCurrentUser(null);
-    } catch (error) {
-      throw new Error("Failed to logout");
-    }
+    firebase.auth().signOut();
   };
 
   return {
@@ -51,5 +64,6 @@ export function useAuthContext(): AuthContextData {
     oAuthToken,
     login,
     logout,
+    initializing,
   };
 }

@@ -1,7 +1,13 @@
 import React from "react";
 import "./App.css";
-import { Login } from "./pages/login/Login";
+import { Login } from "./components/login/Login";
 import { AuthContext, useAuthContext } from "./utils/hooks/auth.hook";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { Repos } from "./components/home/repos/Repos";
+import { Issues } from "./components/home/issues/Issues";
+import { PrivateRoute } from "./utils/PrivateRoute";
+import { Spinner } from "@chakra-ui/react";
+import Home from "./components/home/Home";
 
 function App() {
   const authContext = useAuthContext();
@@ -12,9 +18,21 @@ function App() {
     console.log("Logged in");
   }
 
-  return (
+  return authContext.initializing ? (
+    <Spinner></Spinner>
+  ) : (
     <AuthContext.Provider value={authContext}>
-      <Login />
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+
+          <PrivateRoute path="/">
+            <Home />
+          </PrivateRoute>
+        </Switch>
+      </Router>
     </AuthContext.Provider>
   );
 }
