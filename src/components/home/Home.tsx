@@ -1,32 +1,28 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
-import { Issues } from "./issues/Issues";
+import React, { FunctionComponent } from "react";
+import { Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
 import { Repos } from "./repos/Repos";
 import { Header } from "./navbar/Navbar";
+import { Issues } from "./issues/Issues";
+import { Container } from "@chakra-ui/react";
 
-function App() {
+export interface HomeProps {}
+
+export const Home: FunctionComponent<HomeProps> = (props: HomeProps) => {
   let { path } = useRouteMatch();
-
-  console.log({ path });
 
   return (
     <>
       <Header />
-      <Router>
+
+      <Container maxW="6xl" marginTop="20">
         <Switch>
-          <Route path={`${path}repos/:ownerId/:repoId/issues/:issueId?`}>
-            <Issues />
-          </Route>
-          <Route path={`${path}repos`}>
-            <Repos />
-          </Route>
+          <Route path={`${path}repos/:ownerId/:repoId/issues`} component={Issues}></Route>
+          <Route path={`${path}repos`} component={Repos}></Route>
           <Route path={`${path}`}>
             <Redirect to="/repos"></Redirect>
           </Route>
         </Switch>
-      </Router>
+      </Container>
     </>
   );
-}
-
-export default App;
+};

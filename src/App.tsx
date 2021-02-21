@@ -2,12 +2,10 @@ import React from "react";
 import "./App.css";
 import { Login } from "./components/login/Login";
 import { AuthContext, useAuthContext } from "./utils/hooks/auth.hook";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import { Repos } from "./components/home/repos/Repos";
-import { Issues } from "./components/home/issues/Issues";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { Spinner } from "@chakra-ui/react";
-import Home from "./components/home/Home";
+import { Home } from "./components/home/Home";
 
 function App() {
   const authContext = useAuthContext();

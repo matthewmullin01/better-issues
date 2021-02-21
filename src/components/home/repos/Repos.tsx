@@ -1,4 +1,4 @@
-import { Button, Skeleton, Stack } from "@chakra-ui/react";
+import { Button, Container, Divider, Flex, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GitHubAPI, GitHubRepo } from "../../../api/github";
@@ -48,41 +48,54 @@ export const Repos: FunctionComponent<ReposProps> = (props: ReposProps) => {
     console.log(repo);
   };
 
-  const repoList = repos?.map((repo) => <RepoItem onClick={() => repoClicked(repo)} key={repo.id} repo={repo}></RepoItem>);
+  const repoList = repos?.map((repo) => (
+    <>
+      <RepoItem onClick={() => repoClicked(repo)} key={repo.id} repo={repo}></RepoItem>
+      <Divider />
+    </>
+  ));
 
   const pageButton = (
-    <>
+    <Flex mt="8" mb="8">
       <Button disabled={!hasPrev} onClick={prevPage}>
         Prev
       </Button>
-      <Button disabled={!hasNext} onClick={nextPage}>
+      <Button ml="2" disabled={!hasNext} onClick={nextPage}>
         Next
       </Button>
-    </>
+    </Flex>
   );
 
   return (
     <>
-      {loading ? (
-        <>
-          <Stack>
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-            <Skeleton height="20px" />
-          </Stack>
-        </>
-      ) : (
-        <>
-          {repoList}
-          {pageButton}
-        </>
-      )}
+      <Flex align="center" justify="center">
+        <Heading as="h2" size="lg">
+          Your Repositories
+        </Heading>
+      </Flex>
+
+      <Container mt="8">
+        {loading ? (
+          <>
+            <Stack>
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+            </Stack>
+          </>
+        ) : (
+          <>
+            {repoList}
+            {pageButton}
+          </>
+        )}
+      </Container>
     </>
   );
 };
