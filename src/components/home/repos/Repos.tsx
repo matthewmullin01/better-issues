@@ -23,12 +23,12 @@ export const Repos: FunctionComponent<ReposProps> = () => {
 
   useEffect(() => {
     getRepos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getRepos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [page]);
 
   const getRepos = async () => {
