@@ -32,7 +32,6 @@ export const Repos: FunctionComponent<ReposProps> = () => {
   const getRepos = async () => {
     setLoading(true);
     const repos = await github.getRepos(page, pageLimit);
-    console.log({ repos });
     setRepos(repos);
     setLoading(false);
   };
@@ -47,7 +46,6 @@ export const Repos: FunctionComponent<ReposProps> = () => {
 
   const repoClicked = (repo: GitHubRepo) => {
     history.push(`repos/${repo.owner.login}/${repo.name}/issues`);
-    console.log(repo);
   };
 
   const repoList = repos?.map((repo) => (

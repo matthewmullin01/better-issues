@@ -9,12 +9,6 @@ import { Text, Flex, Heading } from "@chakra-ui/react";
 function App() {
   const authContext = useAuthContext();
 
-  if (!authContext.currentUser) {
-    console.log("Not Logged in");
-  } else {
-    console.log("Logged in");
-  }
-
   return authContext.initializing ? (
     <Flex flexDirection="column" align="center" justify="center" height="100vh" color="#888">
       <Heading as="h1" size="sm" fontWeight="bold">

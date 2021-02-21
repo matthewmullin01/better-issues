@@ -1,50 +1,52 @@
-# Getting Started with Create React App
+# Better Issues | Github Issues Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Better Issues taps into the Github API to provide a nice UI for you to view any issues in your various repositories.
 
-## Available Scripts
+Live Demo - https://better-issues.web.app/
 
-In the project directory, you can run:
+![ScreenShot](https://i.imgur.com/6Ry8fko.png)
 
-### `yarn start`
+## Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. React
+2. ChakraUI
+2. React Context API
+3. GitHub API
+3. Firebase (Auth and Hosting)
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Install dependencies with `yarn` or `npm install`
+2. Start local server with `yarn start` or `npm start`
+3. Check the terminal for the port (usually http://localhost:3000/)
 
-### `yarn test`
+## Running Test Suite
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`yarn test` - Launches the test runner in the interactive watch mode.
 
-### `yarn build`
+## Future Improvements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Technical Improvements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Custom Server
+Currently Better Issues is using the Firebase stack. This is great to get started with due to the simplicity and scalability. For example the auth session is completely managed by Firebase. We only have to store the GitHub oAuth token for the user after logging in.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If we would want more flexibility (manage sessions ourselves, simpler backend <-> frontend functionality) we should consider running a server alongside the frontend that manages this. It will handle authentication and session management, and also it could handle the external API calls to GitHub and reformat the response to better suit the UI.
 
-### `yarn eject`
+#### Server Rendering
+To improve performance and help our SEO we could look into server side rendering using something like Next.js.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Import/Export Grouping
+Where it makes sense we could add `index.ts` files to certain folders to group shared imports into a single file. This will clean up the large number of imports we have at the top of most files.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Extract more components to a shared UI lib or folder
+Eg - The headers, the issue supplementary info, etc
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### UI/UX Improvements
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Animate the IssueDetails expanding into view.
+#### Add ordering, and filtering to the various lists (repos, issues)
+#### Add search to the to the various lists (repos, issues)
+#### General Animation and Transition Timings
+Currently some animations are a bit janky due to there not being sufficient fade times. General navigation could also be imoroved by reducing sudden changes in the interface and layouts.
 
 
-# talking Point
-* JS Wrapper vs REST APIs - https://github.com/github-tools/github

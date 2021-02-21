@@ -57,8 +57,6 @@ export function useAuthContext(): AuthContextData {
   };
 
   const logout = async () => {
-    console.log("asydjasdkb");
-
     firebase.auth().signOut();
   };
 
