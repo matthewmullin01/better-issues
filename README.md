@@ -44,9 +44,10 @@ Eg - The headers, the issue supplementary info, etc
 ### UI/UX Improvements
 
 #### Animate the IssueDetails expanding into view.
+#### Add landing page and/or improve login page.
 #### Add ordering, and filtering to the various lists (repos, issues)
-#### Add search to the to the various lists (repos, issues)
+#### Add search to the various lists (repos, issues)
 #### General Animation and Transition Timings
-Currently some animations are a bit janky due to there not being sufficient fade times. General navigation could also be imoroved by reducing sudden changes in the interface and layouts.
+Currently some animations are a bit janky due to there not being sufficient fade times. General navigation could also be improved by reducing sudden changes in the interface and layouts.
 
 
