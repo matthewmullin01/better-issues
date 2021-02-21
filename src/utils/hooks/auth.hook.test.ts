@@ -1,6 +1,7 @@
 import { testHook } from "../../testUtils/test.hook";
 import { AuthContextData, useAuthContext } from "./auth.hook";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 import { firebaseAuthMock, firebaseProviderMock } from "../../testUtils/firebase.mock";
 
 // @ts-ignore
