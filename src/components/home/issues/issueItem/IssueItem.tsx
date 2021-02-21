@@ -25,7 +25,7 @@ export const IssueItem: FunctionComponent<IssueItemProps> = (props: IssueItemPro
   return (
     <Box mt="3" mb="3" p="2">
       <Heading mt="2" as="h5" size="sm">
-        <Link onClick={() => onClick(issue)} color="teal.500">
+        <Link onClick={() => onClick(issue)} color="blue.500">
           {issue.title}
         </Link>
       </Heading>

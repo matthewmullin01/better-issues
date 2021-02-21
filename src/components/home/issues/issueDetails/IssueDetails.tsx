@@ -67,7 +67,7 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
               </Text>
             </Flex>
 
-            <Box mt="4" color="#777" fontSize="0.75em">
+            <Box mt="4" color="gray" fontSize="0.75em">
               <ReactMarkdown renderers={ChakraUIRenderer()} source={issue.body} />
             </Box>
           </Box>

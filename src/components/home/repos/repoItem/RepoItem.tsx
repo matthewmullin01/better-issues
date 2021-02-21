@@ -18,7 +18,7 @@ export const RepoItem: FunctionComponent<RepoItemProps> = (props: RepoItemProps)
       </Heading>
 
       <Heading mt="2" as="h5" size="sm">
-        <Link onClick={() => onClick(repo)} color="teal.500">
+        <Link onClick={() => onClick(repo)} color="blue.500">
           {repo.name}
         </Link>
       </Heading>
