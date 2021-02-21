@@ -1,4 +1,5 @@
 import axios from "axios";
+import firebase from "firebase";
 
 export class GitHubAPI {
   token: string;
@@ -11,6 +12,7 @@ export class GitHubAPI {
     try {
       return (await axios.get<GitHubRepo[]>(`https://api.github.com/user/repos?page=${page}&per_page=${limit}`, this.headers())).data;
     } catch (error) {
+      if (error.code === 401) firebase.auth().signOut();
       throw new Error("Error getting repos " + error);
     }
   }
@@ -24,6 +26,7 @@ export class GitHubAPI {
         )
       ).data;
     } catch (error) {
+      if (error.code === 401) firebase.auth().signOut();
       throw new Error("Error getting issues " + error);
     }
   }
@@ -32,6 +35,7 @@ export class GitHubAPI {
     try {
       return (await axios.get<GitHubIssue>(`https://api.github.com/repos/${ownerId}/${repoId}/issues/${issueId}`, this.headers())).data;
     } catch (error) {
+      if (error.code === 401) firebase.auth().signOut();
       throw new Error("Error getting issue " + error);
     }
   }

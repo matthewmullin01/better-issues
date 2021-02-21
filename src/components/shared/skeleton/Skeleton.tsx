@@ -1,22 +1,17 @@
 import React, { FunctionComponent } from "react";
-import { Stack, Skeleton as ChakraSkeleton } from "@chakra-ui/react";
+import { SkeletonText } from "@chakra-ui/react";
 
-export interface SkeletonProps {}
+export interface SkeletonProps {
+  isLoading: boolean;
+  children?: any;
+}
 
 export const Skeleton: FunctionComponent<SkeletonProps> = (props: SkeletonProps) => {
   return (
     <>
-      <Stack>
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-        <ChakraSkeleton height="20px" />
-      </Stack>
+      <SkeletonText noOfLines={10} spacing="4" isLoaded={!props.isLoading}>
+        {props.children}
+      </SkeletonText>
     </>
   );
 };

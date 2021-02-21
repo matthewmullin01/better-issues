@@ -55,14 +55,10 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
 
   return (
     <>
-      {loading ? (
-        <Skeleton />
-      ) : (
-        <div>
-          {issueList}
-          <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
-        </div>
-      )}
+      <Skeleton isLoading={loading}>
+        {issueList}
+        <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
+      </Skeleton>
     </>
   );
 };

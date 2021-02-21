@@ -51,11 +51,14 @@ export function useAuthContext(): AuthContextData {
 
   const loginWithGithub = async () => {
     const provider = new firebase.auth.GithubAuthProvider();
+
     provider.addScope("repo");
     return firebase.auth().signInWithPopup(provider);
   };
 
   const logout = async () => {
+    console.log("asydjasdkb");
+
     firebase.auth().signOut();
   };
 

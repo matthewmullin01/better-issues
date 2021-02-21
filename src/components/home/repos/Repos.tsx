@@ -66,14 +66,10 @@ export const Repos: FunctionComponent<ReposProps> = () => {
       </Flex>
 
       <Container mt="8">
-        {loading ? (
-          <Skeleton />
-        ) : (
-          <>
-            {repoList}
-            <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
-          </>
-        )}
+        <Skeleton isLoading={loading}>
+          {repoList}
+          <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
+        </Skeleton>
       </Container>
     </>
   );

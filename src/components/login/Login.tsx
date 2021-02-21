@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex, Heading, useToast } from "@chakra-ui/react";
 import { AuthContext } from "../../utils/hooks/auth.hook";
 import { useHistory } from "react-router-dom";
 
@@ -7,11 +7,23 @@ export interface LoginProps {}
 
 export const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
   const { login } = useContext(AuthContext);
+  const toast = useToast();
+
   const history = useHistory();
 
   const loginClicked = async () => {
-    await login();
-    history.push("/");
+    try {
+      await login();
+      history.push("/");
+    } catch (error) {
+      toast({
+        title: "Login Error",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -25,7 +37,6 @@ export const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
       <Button mt="8" onClick={loginClicked}>
         Login with Github
       </Button>
-      ;
     </Flex>
   );
 };

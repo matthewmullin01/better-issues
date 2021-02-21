@@ -1,11 +1,10 @@
 import React from "react";
-import "./App.css";
 import { Login } from "./components/login/Login";
 import { AuthContext, useAuthContext } from "./utils/hooks/auth.hook";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "./utils/PrivateRoute";
-import { Spinner } from "@chakra-ui/react";
 import { Home } from "./components/home/Home";
+import { Text, Flex, Heading } from "@chakra-ui/react";
 
 function App() {
   const authContext = useAuthContext();
@@ -17,7 +16,14 @@ function App() {
   }
 
   return authContext.initializing ? (
-    <Spinner></Spinner>
+    <Flex flexDirection="column" align="center" justify="center" height="100vh" color="#888">
+      <Heading as="h1" size="sm" fontWeight="bold">
+        We don't make mistakes - we just have happy accidents
+      </Heading>
+      <Text m="2" fontStyle="italic">
+        Bob Ross
+      </Text>
+    </Flex>
   ) : (
     <AuthContext.Provider value={authContext}>
       <Router>
