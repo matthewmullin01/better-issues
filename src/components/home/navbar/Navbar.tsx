@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from "react";
-import { Box, Heading, Flex, Button, useColorMode, IconButton } from "@chakra-ui/react";
+import { Heading, Flex, Button, useColorMode, IconButton } from "@chakra-ui/react";
 import { AuthContext } from "../../../utils/hooks/auth.hook";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
