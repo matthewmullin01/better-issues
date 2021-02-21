@@ -1,4 +1,4 @@
-import { Box, Heading, Tag, Text, Flex, CloseButton } from "@chakra-ui/react";
+import { Box, Heading, Tag, Text, Flex, CloseButton, useToast } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
@@ -17,6 +17,7 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(true);
   const [issue, setIssue] = useState<GitHubIssue | null>(null);
+  const toast = useToast();
 
   useEffect(() => {
     getIssue();
@@ -24,10 +25,18 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
   }, []);
 
   const getIssue = async () => {
-    setLoading(true);
-    const issue = await github.getIssue(ownerId, repoId, issueId);
-    setLoading(false);
-    setIssue(issue);
+    try {
+      setLoading(true);
+      const issue = await github.getIssue(ownerId, repoId, issueId);
+      setLoading(false);
+      setIssue(issue);
+    } catch (error) {
+      toast({
+        title: "Error getting issue",
+        description: `Are you sure issue ${issueId} exists?`,
+        status: "error",
+      });
+    }
   };
 
   const getTagColor = (state: string) => {

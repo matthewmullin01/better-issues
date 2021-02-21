@@ -1,4 +1,4 @@
-import { Box, Divider } from "@chakra-ui/react";
+import { Box, Center, Divider, Text, useToast } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { GitHubIssue, GitHubAPI } from "../../../../api/github";
@@ -20,6 +20,7 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
   const pageLimit = 10;
   const hasNext = (issues?.length || 0) === pageLimit;
   const hasPrev = page > 1;
+  const toast = useToast();
 
   const github = new GitHubAPI(oAuthToken!);
 
@@ -29,10 +30,18 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
   }, [page]);
 
   const getIssues = async () => {
-    setLoading(true);
-    const issues = await github.getIssues(ownerId, repoId, page, pageLimit);
-    setIssues(issues);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const issues = await github.getIssues(ownerId, repoId, page, pageLimit);
+      setIssues(issues);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error getting issues",
+        description: `Are you sure repository ${ownerId}/${repoId} exists?`,
+        status: "error",
+      });
+    }
   };
 
   const nextPage = () => {
@@ -54,11 +63,23 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
     </Box>
   ));
 
+  const issuesWithPaginator = (
+    <>
+      {issueList}
+      <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
+    </>
+  );
+
   return (
     <>
       <Skeleton isLoading={loading}>
-        {issueList}
-        <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
+        {issues && issues.length > 0 ? (
+          issuesWithPaginator
+        ) : (
+          <Center>
+            <Text> No Issues found </Text>
+          </Center>
+        )}
       </Skeleton>
     </>
   );

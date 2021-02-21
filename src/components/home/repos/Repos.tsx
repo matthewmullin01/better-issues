@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, Heading, useToast } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GitHubAPI, GitHubRepo } from "../../../api/github";
@@ -17,6 +17,7 @@ export const Repos: FunctionComponent<ReposProps> = () => {
   const history = useHistory();
   const pageLimit = 10;
   const hasNext = (repos?.length || 0) === pageLimit;
+  const toast = useToast();
   const hasPrev = page > 1;
 
   const github = new GitHubAPI(oAuthToken!);
@@ -32,10 +33,18 @@ export const Repos: FunctionComponent<ReposProps> = () => {
   }, [page]);
 
   const getRepos = async () => {
-    setLoading(true);
-    const repos = await github.getRepos(page, pageLimit);
-    setRepos(repos);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const repos = await github.getRepos(page, pageLimit);
+      setRepos(repos);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error getting repositories",
+        description: `Something went wrong getting your repositories. Try Reloading or Logging back in`,
+        status: "error",
+      });
+    }
   };
 
   const nextPage = () => {

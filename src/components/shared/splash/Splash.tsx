@@ -8,7 +8,7 @@ export const Splash: FunctionComponent<SplashProps> = (props: SplashProps) => {
     <>
       <Flex flexDirection="column" align="center" justify="center" height="100vh" color="#888">
         <Heading as="h1" size="sm" fontWeight="bold">
-          We don't make mistakes - we just have happy accidents
+          "We don't make mistakes - we just have happy accidents"
         </Heading>
         <Text m="2" fontStyle="italic">
           Bob Ross
