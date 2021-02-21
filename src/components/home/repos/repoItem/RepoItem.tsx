@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Heading, Tag, Button } from "@chakra-ui/react";
+import { Box, Text, Flex, Heading, Tag, Link } from "@chakra-ui/react";
 import { formatDistance } from "date-fns";
 import React, { FunctionComponent } from "react";
 import { GitHubRepo } from "../../../../api/github";
@@ -18,9 +18,9 @@ export const RepoItem: FunctionComponent<RepoItemProps> = (props: RepoItemProps)
       </Heading>
 
       <Heading mt="2" as="h5" size="sm">
-        <Button onClick={() => onClick(repo)} colorScheme="teal" variant="link">
+        <Link onClick={() => onClick(repo)} color="teal.500">
           {repo.name}
-        </Button>
+        </Link>
       </Heading>
 
       <Text mt="1" fontSize="xs">

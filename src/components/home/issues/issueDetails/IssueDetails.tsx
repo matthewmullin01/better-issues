@@ -1,10 +1,11 @@
-import { Skeleton, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import { useParams } from "react-router-dom";
 import { GitHubAPI, GitHubIssue } from "../../../../api/github";
 import { AuthContext } from "../../../../utils/hooks/auth.hook";
+import { Skeleton } from "../../../shared/skeleton/Skeleton";
 
 export interface IssueDetailsProps {}
 
@@ -26,24 +27,10 @@ export const IssueDetails: FunctionComponent<IssueDetailsProps> = (props: IssueD
     setIssue(issue);
   };
 
-  const Loader = (
-    <Stack>
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-    </Stack>
-  );
-
   return (
     <>
       {loading || !issue ? (
-        Loader
+        <Skeleton />
       ) : (
         <div>
           <h1>{issue.title}</h1>

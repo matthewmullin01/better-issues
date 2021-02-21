@@ -1,16 +1,18 @@
-import { Button, Container, Divider, Flex, Skeleton, Stack } from "@chakra-ui/react";
+import { Divider } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { GitHubIssue, GitHubAPI } from "../../../../api/github";
 import { AuthContext } from "../../../../utils/hooks/auth.hook";
-import { IssueDetails } from "../issueDetails/IssueDetails";
+import { Paginator } from "../../../shared/paginator/Paginator";
+import { Skeleton } from "../../../shared/skeleton/Skeleton";
+
 import { IssueItem } from "../issueItem/IssueItem";
 
 export interface IssueListProps {}
 
 export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListProps) => {
   const { oAuthToken } = useContext(AuthContext);
-  let { ownerId, repoId, issueId } = useParams<{ ownerId: string; repoId: string; issueId?: string }>();
+  let { ownerId, repoId } = useParams<{ ownerId: string; repoId: string; issueId?: string }>();
   const [issues, setIssues] = useState<GitHubIssue[] | null>();
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
@@ -51,39 +53,14 @@ export const IssueList: FunctionComponent<IssueListProps> = (props: IssueListPro
     </>
   ));
 
-  const pageButton = (
-    <>
-      <Button disabled={!hasPrev} onClick={prevPage}>
-        Prev
-      </Button>
-      <Button disabled={!hasNext} onClick={nextPage}>
-        Next
-      </Button>
-    </>
-  );
-
-  const Loader = (
-    <Stack>
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-    </Stack>
-  );
-
   return (
     <>
       {loading ? (
-        Loader
+        <Skeleton />
       ) : (
         <div>
           {issueList}
-          {pageButton}
+          <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
         </div>
       )}
     </>

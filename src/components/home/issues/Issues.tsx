@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Switch, Route, useRouteMatch, useParams, useHistory } from "react-router-dom";
-import { Box, Button, Container, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading } from "@chakra-ui/react";
 import { IssueDetails } from "./issueDetails/IssueDetails";
 import { IssueList } from "./issueList/IssueList";
 

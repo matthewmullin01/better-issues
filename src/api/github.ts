@@ -69,4 +69,8 @@ export interface GitHubIssue {
   number: number;
   state: string;
   url: string;
+  user: {
+    id: string;
+    login: string;
+  };
 }

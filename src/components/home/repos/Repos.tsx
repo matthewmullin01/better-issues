@@ -1,13 +1,14 @@
-import { Button, Container, Divider, Flex, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import { Container, Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GitHubAPI, GitHubRepo } from "../../../api/github";
 import { AuthContext } from "../../../utils/hooks/auth.hook";
+import { Paginator } from "../../shared/paginator/Paginator";
 import { RepoItem } from "./repoItem/RepoItem";
 
 export interface ReposProps {}
 
-export const Repos: FunctionComponent<ReposProps> = (props: ReposProps) => {
+export const Repos: FunctionComponent<ReposProps> = () => {
   const { oAuthToken } = useContext(AuthContext);
   const [repos, setRepos] = useState<GitHubRepo[] | null>();
   const [page, setPage] = useState<number>(1);
@@ -55,17 +56,6 @@ export const Repos: FunctionComponent<ReposProps> = (props: ReposProps) => {
     </>
   ));
 
-  const pageButton = (
-    <Flex mt="8" mb="8">
-      <Button disabled={!hasPrev} onClick={prevPage}>
-        Prev
-      </Button>
-      <Button ml="2" disabled={!hasNext} onClick={nextPage}>
-        Next
-      </Button>
-    </Flex>
-  );
-
   return (
     <>
       <Flex align="center" justify="center">
@@ -76,23 +66,11 @@ export const Repos: FunctionComponent<ReposProps> = (props: ReposProps) => {
 
       <Container mt="8">
         {loading ? (
-          <>
-            <Stack>
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-            </Stack>
-          </>
+          <></>
         ) : (
           <>
             {repoList}
-            {pageButton}
+            <Paginator onNext={nextPage} onPrev={prevPage} hasNext={hasNext} hasPrev={hasPrev} />
           </>
         )}
       </Container>
