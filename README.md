@@ -1,6 +1,8 @@
 # Better Issues | Github Issues Viewer
 
-Better Issues taps into the Github API to provide a nice UI for you to view any issues in your various repositories.
+_Dooly interview take home project_
+
+Better Issues taps into the Github API to provide a nice UI for you to view any issues in your various repositories. 
 
 Live Demo - https://better-issues.web.app/
 
@@ -11,7 +13,7 @@ Live Demo - https://better-issues.web.app/
 1. React
 2. ChakraUI
 2. React Context API
-3. GitHub API
+3. Github API
 3. Firebase (Auth and Hosting)
 ## Getting Started
 
@@ -28,9 +30,9 @@ Live Demo - https://better-issues.web.app/
 ### Technical Improvements
 
 #### Custom Server
-Currently Better Issues is using the Firebase stack. This is great to get started with due to the simplicity and scalability. For example the auth session is completely managed by Firebase. We only have to store the GitHub oAuth token for the user after logging in.
+Currently Better Issues is using the Firebase stack. This is great to get started with due to the simplicity and scalability. For example the auth session is completely managed by Firebase. We only have to store the Github oAuth token for the user after logging in.
 
-If we would want more flexibility (manage sessions ourselves, simpler backend <-> frontend functionality) we should consider running a server alongside the frontend that manages this. It will handle authentication and session management, and also it could handle the external API calls to GitHub and reformat the response to better suit the UI.
+If we would want more flexibility (manage sessions ourselves, simpler backend <-> frontend functionality) we should consider running a server alongside the frontend that manages this. It will handle authentication and session management, and also it could handle the external API calls to Github and reformat the response to better suit the UI.
 
 #### Server Rendering
 To improve performance and help our SEO we could look into server side rendering using something like Next.js.
